@@ -14,6 +14,7 @@ import androidx.compose.runtime.*
 import androidx.navigation.NavHostController
 import androidx.compose.material3.Text
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.sp
 
 
 @Composable
@@ -38,13 +39,23 @@ fun MainScreen(
 
 
     /*Contenido principal de la página con el formato correspondiente y gestión de los mensajes de error en
-    caso de que el campo este vacío*/
+     caso de que el campo este vacío*/
+
     Column(
         modifier = modifier
             .fillMaxSize()
             .padding(16.dp),
         verticalArrangement = Arrangement.Center
     ) {
+
+        // Texto superior
+        Text(
+            text = "Introduzca sus datos",
+            fontSize = 24.sp,
+            color = Color.Black
+        )
+        Spacer(modifier = Modifier.height(25.dp))
+
         // Nombre Field
         TextField(
             value = inputText1,
