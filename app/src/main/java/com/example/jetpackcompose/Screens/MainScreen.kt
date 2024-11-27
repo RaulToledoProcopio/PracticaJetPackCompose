@@ -102,7 +102,7 @@ fun MainScreen(
         TextField(
             value = inputText4,
             onValueChange = { inputText4 = it },
-            label = { Text("DNI") },
+            label = { Text("DNI (01234567A)") },
             modifier = Modifier.fillMaxWidth(),
             isError = errorMessage4.isNotEmpty()
         )
