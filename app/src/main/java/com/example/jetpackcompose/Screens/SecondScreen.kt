@@ -6,6 +6,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
@@ -13,12 +14,16 @@ import com.example.jetpackcompose.Navigation.AppScreen
 
 @Composable
 fun SecondScreen(
-    navController: NavHostController,
-    text1: String?,
-    text2: String?,
-    text3: String?,
-    text4: String?
+    navController: NavHostController, // Recibimos el controlador de navegación para manejar las rutas
+    text1: String?, // Parametro que va a recibir el nombre
+    text2: String?, // Apellido
+    text3: String?, // Ciudad
+    text4: String? // DNI
 ) {
+
+    /* Contenido principal de la página en el que simplemente se muestra un aviso de que se ha generado correctamente
+    y luego los parámetros que hemos recibido en cada campo */
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -29,8 +34,12 @@ fun SecondScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             // Confirmación
-            Text(text = "Su usuario ha sido creado", fontSize = 18.sp)
-            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = "Su usuario ha sido creado",
+                fontSize = 24.sp,
+                color = Color.Green
+            )
+            Spacer(modifier = Modifier.height(25.dp))
 
             // Nombre
             Text(text = "Nombre: $text1", fontSize = 18.sp)
@@ -59,4 +68,3 @@ fun SecondScreen(
         }
     }
 }
-

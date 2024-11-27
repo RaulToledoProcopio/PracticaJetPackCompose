@@ -12,12 +12,11 @@ import androidx.navigation.compose.rememberNavController
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
+        super.onCreate(savedInstanceState) // Llamamos al metodo onCreate de la clase base.
+        setContent { // Configuramos el contenido de la actividad usando Jetpack Compose.
             JetpackComposeTheme {
-                // Crear el navController en el Composable
-                val navController = rememberNavController()
-                AppNavigation(navController = navController)
+                val navController = rememberNavController() // Creamos el controlador de navegación que maneja la navegación entre pantallas.
+                AppNavigation(navController = navController) // Llamamos a la función de navegación pasando el controlador de navegación como parámetro.
             }
         }
     }

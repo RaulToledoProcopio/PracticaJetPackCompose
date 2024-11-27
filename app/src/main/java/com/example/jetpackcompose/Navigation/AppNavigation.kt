@@ -12,12 +12,12 @@ import androidx.navigation.NavController
 
 @Composable
 fun AppNavigation(navController: NavController) {
-    val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = AppScreen.MainScreen.route) {
-        composable(AppScreen.MainScreen.route) {
+    val navController = rememberNavController() // Creamos un NavHost que se encarga de gestionar la navegación entre pantallas
+    NavHost(navController = navController, startDestination = AppScreen.MainScreen.route) { // Definimos el NavHost que maneja la navegación entre pantallas
+        composable(AppScreen.MainScreen.route) { // Configuramos la ruta para la pantalla principal.
             MainScreen(navController = navController)
         }
-        composable(
+        composable( // Configuramos la ruta para la pantalla secundaria y los argumentos que le pasaremos.
             AppScreen.SecondScreen.route,
             arguments = listOf(
                 navArgument("text1") { type = NavType.StringType },

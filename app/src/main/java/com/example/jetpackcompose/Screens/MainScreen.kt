@@ -20,19 +20,25 @@ import androidx.compose.ui.graphics.Color
 fun MainScreen(
     navController: NavHostController,
     modifier: Modifier = Modifier
+    // Declaramos los estados para los campos de texto
 ) {
     var inputText1 by remember { mutableStateOf("") }
     var inputText2 by remember { mutableStateOf("") }
     var inputText3 by remember { mutableStateOf("") }
     var inputText4 by remember { mutableStateOf("") }
+
+    // Declaramos los estados para los mensajes de error.
     var errorMessage1 by remember { mutableStateOf("") }
     var errorMessage2 by remember { mutableStateOf("") }
     var errorMessage3 by remember { mutableStateOf("") }
     var errorMessage4 by remember { mutableStateOf("") }
 
-    // Reset the valid flag to true each time the button is clicked
+    // Nos aseguramos de poder volver a rellenar el formulario en caso de error.
     var valid by remember { mutableStateOf(true) }
 
+
+    /*Contenido principal de la página con el formato correspondiente y gestión de los mensajes de error en
+    caso de que el campo este vacío*/
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -129,6 +135,10 @@ fun MainScreen(
                 if (inputText4.isEmpty()) {
                     errorMessage4 = "Este cuadro no puede estar vacío"
                     valid = false
+
+                /* Con Regex nos aseguramos de que los datos que se pasan estén entre el 0 y el 9
+                y entre la A y la Z, en este caso mayúsculas al ser un DNI*/
+
                 } else if (!Regex("^[0-9]{8}[A-Za-z]{1}$").matches(inputText4)) {
                     errorMessage4 = "El formato no es válido"
                     valid = false
@@ -136,7 +146,7 @@ fun MainScreen(
                     errorMessage4 = ""
                 }
 
-                // Solo navegar si es válido
+                // Solo navegamos si es válido
                 if (valid) {
                     val route = AppScreen.SecondScreen.createRoute(inputText1, inputText2, inputText3, inputText4)
                     navController.navigate(route)
