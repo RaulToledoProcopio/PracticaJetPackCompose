@@ -13,6 +13,7 @@ import androidx.compose.material3.TextField
 import androidx.compose.runtime.*
 import androidx.navigation.NavHostController
 import androidx.compose.material3.Text
+import androidx.compose.ui.graphics.Color
 
 
 @Composable
@@ -24,49 +25,122 @@ fun MainScreen(
     var inputText2 by remember { mutableStateOf("") }
     var inputText3 by remember { mutableStateOf("") }
     var inputText4 by remember { mutableStateOf("") }
+    var errorMessage1 by remember { mutableStateOf("") }
+    var errorMessage2 by remember { mutableStateOf("") }
+    var errorMessage3 by remember { mutableStateOf("") }
+    var errorMessage4 by remember { mutableStateOf("") }
+
+    // Reset the valid flag to true each time the button is clicked
+    var valid by remember { mutableStateOf(true) }
 
     Column(
-        modifier = modifier // Utilizamos el modifier aquí
+        modifier = modifier
             .fillMaxSize()
             .padding(16.dp),
         verticalArrangement = Arrangement.Center
     ) {
+        // Nombre Field
         TextField(
             value = inputText1,
             onValueChange = { inputText1 = it },
             label = { Text("Nombre") },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            isError = errorMessage1.isNotEmpty()
         )
+        if (errorMessage1.isNotEmpty()) {
+            Text(text = errorMessage1, color = Color.Red)
+        }
+
         Spacer(modifier = Modifier.height(8.dp)) // Espaciado entre los campos
+
+        // Apellidos Field
         TextField(
             value = inputText2,
             onValueChange = { inputText2 = it },
             label = { Text("Apellidos") },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            isError = errorMessage2.isNotEmpty()
         )
+        if (errorMessage2.isNotEmpty()) {
+            Text(text = errorMessage2, color = Color.Red)
+        }
+
         Spacer(modifier = Modifier.height(8.dp)) // Espaciado entre los campos
+
+        // Ciudad Field
         TextField(
             value = inputText3,
             onValueChange = { inputText3 = it },
-            label = { Text("Cuidad") },
-            modifier = Modifier.fillMaxWidth()
+            label = { Text("Ciudad") },
+            modifier = Modifier.fillMaxWidth(),
+            isError = errorMessage3.isNotEmpty()
         )
+        if (errorMessage3.isNotEmpty()) {
+            Text(text = errorMessage3, color = Color.Red)
+        }
+
         Spacer(modifier = Modifier.height(8.dp)) // Espaciado entre los campos
+
+        // DNI Field
         TextField(
             value = inputText4,
             onValueChange = { inputText4 = it },
             label = { Text("DNI") },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            isError = errorMessage4.isNotEmpty()
         )
+        if (errorMessage4.isNotEmpty()) {
+            Text(text = errorMessage4, color = Color.Red)
+        }
+
         Spacer(modifier = Modifier.height(16.dp))
+
+        // Enviar Button
         Button(
             onClick = {
-                val route = when {
-                    inputText1.isNotEmpty() && inputText2.isNotEmpty() && inputText3.isNotEmpty() && inputText4.isNotEmpty() ->
-                        AppScreen.SecondScreen.createRoute(inputText1, inputText2, inputText3, inputText4)
-                    else -> AppScreen.SecondScreen.createRoute("No hay datos recibidos", "No hay datos recibidos", "No hay datos recibidos", "No hay datos recibidos")
+                // Al hacer clic, reseteamos valid a true para validar nuevamente
+                valid = true
+
+                // Validar nombre
+                if (inputText1.isEmpty()) {
+                    errorMessage1 = "Este cuadro no puede estar vacío"
+                    valid = false
+                } else {
+                    errorMessage1 = ""
                 }
-                navController.navigate(route)
+
+                // Validar apellidos
+                if (inputText2.isEmpty()) {
+                    errorMessage2 = "Este cuadro no puede estar vacío"
+                    valid = false
+                } else {
+                    errorMessage2 = ""
+                }
+
+                // Validar ciudad
+                if (inputText3.isEmpty()) {
+                    errorMessage3 = "Este cuadro no puede estar vacío"
+                    valid = false
+                } else {
+                    errorMessage3 = ""
+                }
+
+                // Validar DNI
+                if (inputText4.isEmpty()) {
+                    errorMessage4 = "Este cuadro no puede estar vacío"
+                    valid = false
+                } else if (!Regex("^[0-9]{8}[A-Za-z]{1}$").matches(inputText4)) {
+                    errorMessage4 = "El formato no es válido"
+                    valid = false
+                } else {
+                    errorMessage4 = ""
+                }
+
+                // Solo navegar si es válido
+                if (valid) {
+                    val route = AppScreen.SecondScreen.createRoute(inputText1, inputText2, inputText3, inputText4)
+                    navController.navigate(route)
+                }
             },
             modifier = Modifier.fillMaxWidth()
         ) {
