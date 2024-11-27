@@ -1,6 +1,7 @@
 package com.example.jetpackcompose.Screens
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -8,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.jetpackcompose.Navigation.AppScreen
 
 @Composable
 fun SecondScreen(
@@ -26,13 +28,34 @@ fun SecondScreen(
         Column(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = text1 ?: "No hay datos recibidos 1", fontSize = 18.sp)
+            // Confirmación
+            Text(text = "Su usuario ha sido creado", fontSize = 18.sp)
             Spacer(modifier = Modifier.height(8.dp))
-            Text(text = text2 ?: "No hay datos recibidos 2", fontSize = 18.sp)
+
+            // Nombre
+            Text(text = "Nombre: $text1", fontSize = 18.sp)
             Spacer(modifier = Modifier.height(8.dp))
-            Text(text = text3 ?: "No hay datos recibidos 3", fontSize = 18.sp)
+
+            // Apellidos
+            Text(text = "Apellidos: $text2", fontSize = 18.sp)
             Spacer(modifier = Modifier.height(8.dp))
-            Text(text = text4 ?: "No hay datos recibidos 4", fontSize = 18.sp)
+
+            // Ciudad
+            Text(text = "Ciudad: $text3", fontSize = 18.sp)
+            Spacer(modifier = Modifier.height(8.dp))
+
+            // DNI
+            Text(text = "DNI: $text4", fontSize = 18.sp)
+            Spacer(modifier = Modifier.height(8.dp))
+
+            // Botón para volver
+            Button(
+                onClick = {
+                    navController.navigate(AppScreen.MainScreen.route)
+                }
+            ) {
+                Text("Volver")
+            }
         }
     }
 }
